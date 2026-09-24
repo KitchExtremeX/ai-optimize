@@ -1,0 +1,26 @@
+{
+  "description": "Checked-in .md and .json files are stdout from --dry-run. They are the local template, not a live model response. No API key was available when they were generated.",
+  "cases": [
+    {
+      "id": "01-summarize",
+      "prompt_file": "01-summarize.txt",
+      "goal": null,
+      "audience": null,
+      "constraints": null
+    },
+    {
+      "id": "02-fix-the-bug",
+      "prompt_file": "02-fix-the-bug.txt",
+      "goal": null,
+      "audience": null,
+      "constraints": null
+    },
+    {
+      "id": "03-marketing-email",
+      "prompt_file": "03-marketing-email.txt",
+      "goal": "Get a reply from a busy cafe owner",
+      "audience": "Independent cafe owners who already buy beans wholesale",
+      "constraints": "Under 120 words. No discount. One clear ask."
+    }
+  ]
+}

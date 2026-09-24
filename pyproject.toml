@@ -1,0 +1,18 @@
+[project]
+name = "ai-optimize"
+version = "0.1.0"
+description = "Turn a weak LLM prompt into a clearer, testable prompt plus eval notes."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Kadien Coe" }]
+dependencies = []
+
+[project.scripts]
+ai-optimize = "ai_optimize.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ai_optimize*"]

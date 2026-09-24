@@ -1,0 +1,49 @@
+{
+  "mode": "dry-run",
+  "model": null,
+  "optimized_prompt": "You complete one task. Do not expand the scope.\n\n## Task\nsummarize this\n\n## Scope\nThe original request is short and leaves out the reader, the output shape, or the inputs. Those slots are explicit below. Do not fill them with guesses.\n\n## Goal\nNot provided. Do not invent a goal. If the task cannot be finished without one, stop and ask.\n\n## Audience\nNot provided. Use plain language a busy builder can check. Do not invent a persona.\n\n## Constraints\nNone provided. Stay concise. If a needed input is missing, name it and stop instead of guessing.\n\n## Inputs\nUse only material the user includes with this prompt. If the task needs source text, code, data, or a link and it is not there, list what is missing and stop.\n\n## Output\nProduce a summary of the source the user supplies. Do not add analysis, a rewrite, or next steps unless the task asked for them.\n\nStructure the answer so a reviewer can score it without asking what was meant.\nIf two instructions conflict, name the conflict and follow Constraints.\nWhen you had to assume something non-obvious, add a final line that starts with \"Assumptions:\". Otherwise omit that line.\n\n## Original request\n> summarize this\n",
+  "changes": [
+    "Split the request into task, goal, audience, constraints, inputs, and output.",
+    "Told the answering model to stop when required inputs are missing.",
+    "Marked the original request as underspecified.",
+    "Selected the local 'summary' output rule from the wording. This is a template, not a model rewrite.",
+    "Added eval notes: what good looks like, edge cases, and pass/fail checks."
+  ],
+  "eval_notes": {
+    "what_good_looks_like": [
+      "A reviewer can tell, from the answer alone, that it responds to: summarize this",
+      "The answer has a visible structure and does not add a second deliverable.",
+      "Missing source material is listed. It is not replaced with invented facts.",
+      "The answer follows the output rule (summary).",
+      "No goal was provided, and the answer does not invent one."
+    ],
+    "edge_cases": [
+      "The user sends the prompt with no source document, code, or data attached.",
+      "The source material contradicts the constraints.",
+      "The request can be read as either a short reply or a structured artifact.",
+      "The user includes only part of the material and the rest would have to be guessed."
+    ],
+    "scoring_checks": [
+      {
+        "name": "Task preserved",
+        "pass_if": "the answer is clearly about: summarize this"
+      },
+      {
+        "name": "Checkable shape",
+        "pass_if": "a reviewer can score the answer without asking what the prompt wanted"
+      },
+      {
+        "name": "Missing inputs",
+        "pass_if": "when no source material is attached, the answer lists what it needs and does not invent it"
+      },
+      {
+        "name": "Output rule",
+        "pass_if": "the answer matches the summary rule: Produce a summary of the source the user supplies. Do not add analysis, a rewrite, or next steps unless the task asked for them."
+      },
+      {
+        "name": "Single deliverable",
+        "pass_if": "the answer does not add a second task the original request did not ask for"
+      }
+    ]
+  }
+}
